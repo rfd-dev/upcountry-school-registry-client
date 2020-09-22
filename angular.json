@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "upcountry-school-registry-client"
+    }
+  },
+  "defaultProject": "upcountry-school-registry-client",
+  "cli": {
+    "analytics": "d896e610-dea1-46ac-96c3-689cd7eb73fe"
+  }
 }
