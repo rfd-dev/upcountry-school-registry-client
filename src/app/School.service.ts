@@ -9,7 +9,7 @@ import { School } from './school';
   providedIn: 'root'
 })
 export class SchoolService {
-  private schoolsURL = 'api/schools';
+  private schoolsURL = 'https://upcountryschoolregistryapi.azurewebsites.net/api/school';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -36,7 +36,7 @@ export class SchoolService {
       return of([]);
     }
 
-    return this.http.get<School[]>(`${this.schoolsURL}/?name=${filter}`)
+    return this.http.get<School[]>(`${this.schoolsURL}/?filter=${filter}`)
       .pipe(        
         catchError(this.handleError<School[]>('searchSchools', []))
       );
@@ -58,7 +58,10 @@ export class SchoolService {
   }
   
   updateSchool(school: School): Observable<any> {
-    return this.http.put(this.schoolsURL, school, this.httpOptions).pipe(      
+    const id = typeof school === 'number' ? school : school.id;
+    const url = `${this.schoolsURL}/${id}`;
+
+    return this.http.put(url, school, this.httpOptions).pipe(      
       catchError(this.handleError<any>('updateSchool'))
     );
   }
